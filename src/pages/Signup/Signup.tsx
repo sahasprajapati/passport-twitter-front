@@ -1,6 +1,6 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useEffect, useState } from "react";
-import { Form } from "react-bootstrap";
+import { Alert, Form } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { CustomButton } from "../../components/Button/Button";
@@ -30,6 +30,7 @@ export const SignUp = () => {
   });
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const [error, setError] = useState("");
   const onSubmit = async (formData: ISignupFormInputs) => {
     setLoading(true);
 
@@ -38,11 +39,16 @@ export const SignUp = () => {
       formData.password,
       formData.repassword
     );
+    console.log(success);
     if (success) {
       saveLogIn(data?.token as string);
       setLoading(false);
 
       navigate("/");
+    } else {
+      setLoading(false);
+
+      setError(message);
     }
   };
 
@@ -62,6 +68,7 @@ export const SignUp = () => {
   ) : (
     <div>
       <h3>Signup </h3>
+      {error.length > 0 && <Alert variant="danger">{error}</Alert>}
       <Form onSubmit={handleSubmit(onSubmit)}>
         <Input
           register={register}

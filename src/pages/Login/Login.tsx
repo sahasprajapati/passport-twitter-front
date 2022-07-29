@@ -1,6 +1,6 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useEffect, useState } from "react";
-import { Button, Form } from "react-bootstrap";
+import { Alert, Button, Form } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { CustomButton } from "../../components/Button/Button";
@@ -29,6 +29,8 @@ export const Login = () => {
   } = useForm<ILoginFormInputs>({
     resolver: yupResolver(loginSchema),
   });
+  const [error, setError] = useState("");
+
   const navigate = useNavigate();
   const onSubmit = async (formData: ILoginFormInputs) => {
     setLoading(true);
@@ -41,6 +43,9 @@ export const Login = () => {
       setLoading(false);
 
       navigate("/");
+    } else {
+      setLoading(false);
+      setError(message);
     }
   };
 
@@ -68,6 +73,8 @@ export const Login = () => {
   ) : (
     <div className="">
       <h3>Login</h3>
+      {error.length > 0 && <Alert variant="danger">{error}</Alert>}
+
       <Form onSubmit={handleSubmit(onSubmit)}>
         <Input
           name="username"
