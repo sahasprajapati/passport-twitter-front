@@ -1,0 +1,29 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  height: 100vh;
+}
+
+.btn-custom {
+  background-color: #3741f8;
+  color: white;
+  margin: 1rem;
+}
+
+.btn-custom:hover {
+  background-color: #646cff;
+  color: white;
+}
+
+.btn-twitter {
+  margin: 1rem;
+
+  background-color: rgb(34, 116, 240);
+  color: white;
+}
+
+.btn-twitter:hover {
+  background-color: rgb(86, 143, 230);
+  color: white;
+}
